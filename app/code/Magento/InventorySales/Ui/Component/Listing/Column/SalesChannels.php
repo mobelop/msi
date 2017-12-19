@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace Magento\InventorySales\Ui\Component\Listing\Column;
 
-use Magento\InventorySales\Setup\Operation\CreateSalesChannelTable;
 use Magento\InventorySales\Ui\SalesChannelNameResolverInterface;
 use Magento\Ui\Component\Listing\Columns\Column;
 use Magento\Framework\View\Element\UiComponentFactory;
@@ -78,24 +77,5 @@ class SalesChannels extends Column
             }
         }
         return $preparedChannelData;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function applySorting()
-    {
-        $sorting = $this->getContext()->getRequestParam('sorting');
-        $isSortable = $this->getData('config/sortable');
-        if ($isSortable !== false
-            && !empty($sorting['field'])
-            && !empty($sorting['direction'])
-            && $sorting['field'] === $this->getName()
-        ) {
-            $this->getContext()->getDataProvider()->addOrder(
-                CreateSalesChannelTable::STOCK_ID,
-                strtoupper($sorting['direction'])
-            );
-        }
     }
 }
